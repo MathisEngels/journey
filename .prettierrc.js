@@ -1,5 +1,8 @@
 /** @type {import("prettier").Config} */
-export default {
+const config = {
+    trailingComma: 'es5',
+    tabWidth: 4,
+    singleQuote: true,
     plugins: ['prettier-plugin-astro'],
     overrides: [
         {
@@ -9,4 +12,6 @@ export default {
             },
         },
     ],
-}
+};
+
+export default config;
