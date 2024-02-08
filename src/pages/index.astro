@@ -1,8 +1,11 @@
 ---
 import '@/styles/globals.css'
-import Layout from '../layouts/Layout.astro'
+import Layout from '@/layouts/Layout.astro'
+import Fiber from '@/components/Fiber'
 ---
 
 <Layout>
-    <main></main>
+    <main style="height: 100vh">
+        <Fiber client:load />
+    </main>
 </Layout>
