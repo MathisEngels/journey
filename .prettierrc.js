@@ -3,6 +3,7 @@ const config = {
     trailingComma: 'es5',
     tabWidth: 4,
     singleQuote: true,
+    printWidth: 150,
     plugins: ['prettier-plugin-astro'],
     overrides: [
         {
