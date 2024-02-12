@@ -58,6 +58,57 @@ export const SCENES_DISCOVERY_CAMERA_ANGLE = [
     },
 ];
 
+export const TRIGGER_POINTS_POI = [
+    {
+        xMin: -70,
+        zMin: -5,
+        xMax: -60,
+        zMax: 5,
+    },
+    {
+        xMin: -2,
+        zMin: -12,
+        xMax: 7,
+        zMax: -5,
+    },
+    {
+        xMin: 25,
+        zMin: 1,
+        xMax: 35,
+        zMax: 12,
+    },
+    {
+        xMin: 57,
+        zMin: -11,
+        xMax: 72,
+        zMax: -1.5,
+    },
+    {
+        xMin: 88,
+        zMin: 1,
+        xMax: 99,
+        zMax: 10,
+    },
+    {
+        xMin: 161,
+        zMin: -15,
+        xMax: 169,
+        zMax: -7.5,
+    },
+    {
+        xMin: 219.5,
+        zMin: 7.5,
+        xMax: 228,
+        zMax: 15,
+    },
+    {
+        xMin: 238,
+        zMin: 7.5,
+        xMax: 249,
+        zMax: 18,
+    },
+];
+
 export const TRIGGER_POINTS_SCENE_REVEAL = [
     {
         xMin: -76,
