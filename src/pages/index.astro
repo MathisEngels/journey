@@ -5,7 +5,7 @@ import LoaderAction from '@/components/ui/LoaderAction.tsx'
 import LoaderContent from '@/components/ui/LoaderContent.astro'
 import LoaderHeader from '@/components/ui/LoaderHeader.astro'
 import SideMenu from '@/components/ui/SideMenu.tsx'
-import SideMenuLink from '@/components/ui/SideMenuLink.tsx'
+import SideMenuLink from '@/components/ui/SideMenuLink.astro'
 import Tutorial from '@/components/ui/Tutorial.astro'
 import TutorialInstruction from '@/components/ui/TutorialInstruction.tsx'
 import Layout from '@/layouts/Layout.astro'
@@ -35,6 +35,15 @@ import '@/styles/globals.css'
             <LoaderAction client:load>Explore my path</LoaderAction>
         </Loader>
 
-        <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:load />
+        <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:load>
+            <ul class="space-y-4">
+                <SideMenuLink href="/" title="Portfolio" />
+                <SideMenuLink href="/about" title="About" />
+                <SideMenuLink href="/projects" title="Projects" />
+                <SideMenuLink href="/resume" title="Resume" />
+                <SideMenuLink href="/contact" title="Contact" />
+                <SideMenuLink href="/legal" title="Legal" />
+            </ul>
+        </SideMenu>
     </main>
 </Layout>

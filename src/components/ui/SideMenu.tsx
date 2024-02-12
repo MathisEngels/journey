@@ -3,15 +3,15 @@ import { useStore } from '@nanostores/react';
 import { Github, Linkedin, Menu } from 'lucide-react';
 import { Button, buttonVariants } from './button';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './sheet';
-import SideMenuLink from './SideMenuLink';
 
 interface SideMenuProps {
     title: string;
     description: string;
+    children: React.ReactNode;
 }
 
 export function SideMenu(props: SideMenuProps) {
-    const { title, description } = props;
+    const { title, description, children } = props;
 
     const $fade = useStore(loaderFade);
 
@@ -31,17 +31,8 @@ export function SideMenu(props: SideMenuProps) {
                                 <h3 className="font-light">{description}</h3>
                             </header>
                         </SheetTitle>
-                        <SheetDescription asChild className="flex flex-col pl-4 text-xl">
-                            <nav>
-                                <ul className="space-y-4">
-                                    <SideMenuLink href="/" title="Portfolio" />
-                                    <SideMenuLink href="/about" title="About" />
-                                    <SideMenuLink href="/projects" title="Projects" />
-                                    <SideMenuLink href="/resume" title="Resume" />
-                                    <SideMenuLink href="/contact" title="Contact" />
-                                    <SideMenuLink href="/legal" title="Legal" />
-                                </ul>
-                            </nav>
+                        <SheetDescription className="flex flex-col pl-4 text-xl">
+                            <nav>{children}</nav>
                         </SheetDescription>
                         <SheetFooter className="!mt-auto">
                             <a className={buttonVariants({ variant: 'ghost' })} href={'https://github.com/MathisEngels'}>
