@@ -4,6 +4,8 @@ import Loader from '@/components/ui/Loader.tsx'
 import LoaderAction from '@/components/ui/LoaderAction.tsx'
 import LoaderContent from '@/components/ui/LoaderContent.astro'
 import LoaderHeader from '@/components/ui/LoaderHeader.astro'
+import SideMenu from '@/components/ui/SideMenu.tsx'
+import SideMenuLink from '@/components/ui/SideMenuLink.tsx'
 import Tutorial from '@/components/ui/Tutorial.astro'
 import TutorialInstruction from '@/components/ui/TutorialInstruction.tsx'
 import Layout from '@/layouts/Layout.astro'
@@ -15,12 +17,12 @@ import '@/styles/globals.css'
         <Fiber client:load />
 
         <Tutorial>
-            <TutorialInstruction index={1}>Move around by right clicking.</TutorialInstruction>
-            <TutorialInstruction index={2}>Enter the circle to begin the interactive experience.</TutorialInstruction>
-            <TutorialInstruction index={3}>Explore the surroundings by clicking and holding the left button.</TutorialInstruction>
+            <TutorialInstruction index={1} client:load>Move around by right clicking.</TutorialInstruction>
+            <TutorialInstruction index={2} client:load>Enter the circle to begin the interactive experience.</TutorialInstruction>
+            <TutorialInstruction index={3} client:load>Explore the surroundings by clicking and holding the left button.</TutorialInstruction>
         </Tutorial>
 
-        <Loader>
+        <Loader client:load>
             <LoaderHeader>
                 <Fragment slot="title">Mathis Engels</Fragment>
                 <Fragment slot="description">Freelance Fullstack Dev</Fragment>
@@ -30,7 +32,9 @@ import '@/styles/globals.css'
                 <p>I'm Mathis, a freelance fullstack developer passionate about building engaging and enjoyable digital experiences. </p>
                 <p>Step onto my path, explore my capabilities, and discover the value my services can bring to your projects.</p>
             </LoaderContent>
-            <LoaderAction>Explore my path</LoaderAction>
+            <LoaderAction client:load>Explore my path</LoaderAction>
         </Loader>
+
+        <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:load />
     </main>
 </Layout>
