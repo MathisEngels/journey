@@ -18,3 +18,15 @@ export const targetPosition = map<Vector3>(new Vector3(0, -1, 0));
 export function setTargetPosition(v: Vector3) {
     targetPosition.set(new Vector3(v.x, v.y, v.z));
 }
+
+export const lastSceneTimelineStarted = atom(0);
+
+export function setLastSceneTimelineStarted(scene: number) {
+    lastSceneTimelineStarted.set(scene);
+}
+
+export const lastSceneTimelineCompleted = atom(0);
+
+export function setLastSceneTimelineCompleted(scene: number) {
+    lastSceneTimelineCompleted.set(scene);
+}

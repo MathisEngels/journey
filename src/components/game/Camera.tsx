@@ -1,5 +1,13 @@
-import { CAMERA_MAX_DISTANCE, CAMERA_MIN_DISTANCE, CAMERA_TRANSITION_SPEED, DEFAULT_CAMERA_POSITION, DEFAULT_CAMERA_ROTATION } from '@/config';
-import { playerOpacity, playerPosition, setPlayerOpacity } from '@/gameStore';
+import {
+    CAMERA_MAX_DISTANCE,
+    CAMERA_MIN_DISTANCE,
+    CAMERA_TRANSITION_SPEED,
+    DEFAULT_CAMERA_POSITION,
+    DEFAULT_CAMERA_ROTATION,
+    SCENES_DISCOVERY_CAMERA_ANGLE,
+    SCENE_NUMBER,
+} from '@/config';
+import { lastSceneTimelineStarted, playerOpacity, playerPosition, setPlayerOpacity } from '@/gameStore';
 import { useStore } from '@nanostores/react';
 import { CameraControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
@@ -10,7 +18,7 @@ import type { Mesh } from 'three/src/objects/Mesh.js';
 
 function Camera() {
     const controlsRef = useRef<CameraControls>(null);
-    const { scene } = useThree();
+    const { gl, scene } = useThree();
 
     const locked = useRef<boolean>(true);
     const previousDistance = useRef<number>(0);
@@ -82,9 +90,37 @@ function Camera() {
             }
         });
 
+        const unlistenSceneDiscoveryAnimation = lastSceneTimelineStarted.listen((lastSceneTimelineStarted) => {
+            switch (lastSceneTimelineStarted) {
+                case 0:
+                    break;
+                case 1:
+                    controlsRef.current!.connect(gl.domElement);
+                    locked.current = false;
+                    controlsRef.current?.rotateTo(
+                        SCENES_DISCOVERY_CAMERA_ANGLE[lastSceneTimelineStarted - 1].azimuth,
+                        SCENES_DISCOVERY_CAMERA_ANGLE[lastSceneTimelineStarted - 1].polar,
+                        true
+                    );
+                    break;
+                default:
+                    controlsRef.current!.rotateTo(
+                        SCENES_DISCOVERY_CAMERA_ANGLE[lastSceneTimelineStarted - 1].azimuth,
+                        SCENES_DISCOVERY_CAMERA_ANGLE[lastSceneTimelineStarted - 1].polar,
+                        true
+                    );
+                    break;
+            }
+            if (lastSceneTimelineStarted === SCENE_NUMBER) {
+                console.log('successfully unlistened scene discovery animation');
+                unlistenSceneDiscoveryAnimation();
+            }
+        });
+
         window.addEventListener('resize', onResize);
         return () => {
             unsubCameraPositionUpdater();
+            unlistenSceneDiscoveryAnimation();
             window.removeEventListener('resize', onResize);
         };
     }, []);

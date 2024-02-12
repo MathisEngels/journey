@@ -1,9 +1,10 @@
 import { SCENE_NUMBER } from '@/config';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { LinearFilter, Mesh, MeshStandardMaterial, SRGBColorSpace, Texture } from 'three';
 import { setTarget } from '../../utils/gameUtils';
+import { lastSceneTimelineCompleted } from '@/gameStore';
 
 function Island() {
     const [texture, setTexture] = useState<Texture>();
@@ -21,6 +22,16 @@ function Island() {
         if (!texture) return;
         return new MeshStandardMaterial({ map: texture });
     }, [texture]);
+
+    useEffect(() => {
+        const unsubscribe = lastSceneTimelineCompleted.subscribe((lastSceneTimelineCompleted) => {
+            setTexture(textures[lastSceneTimelineCompleted]);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
         <>
