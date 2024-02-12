@@ -1,6 +1,5 @@
 import { DEFAULT_PLAYER_POSITION } from '@/config';
 import { playerPosition } from '@/gameStore';
-import { useStore } from '@nanostores/react';
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import type { Object3D } from 'three/src/core/Object3D.js';
@@ -11,21 +10,23 @@ function Lights() {
     const [target, setTarget] = useState<Object3D>();
     const { scene } = useThree();
 
-    const $playerPosition = useStore(playerPosition);
-
-    useEffect(() => {
-        if (ref.current) {
-            ref.current.position.set($playerPosition.x + 4.5, $playerPosition.y + 5.25, $playerPosition.z + 5);
-        }
-    }, [$playerPosition]);
-
     useEffect(() => {
         scene.traverse((child: Object3D) => {
-            if (child.name === 'player_body') {
+            if (child.name === 'player_rigid_body') {
                 setTarget(child);
                 return;
             }
         });
+
+        const unsubscribe = playerPosition.listen((position) => {
+            if (ref.current) {
+                ref.current.position.set(position.x + 4.5, position.y + 5.25, position.z + 5);
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
     return (

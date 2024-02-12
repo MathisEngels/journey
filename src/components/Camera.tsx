@@ -27,15 +27,7 @@ function Camera() {
         return meshes;
     }, []);
 
-    const $playerPosition = useStore(playerPosition);
     const $playerOpacity = useStore(playerOpacity);
-
-    useEffect(() => {
-        if (locked.current) return;
-        if (controlsRef.current) {
-            controlsRef.current.moveTo($playerPosition.x, $playerPosition.y + 0.75, $playerPosition.z, true);
-        }
-    }, [$playerPosition]);
 
     useEffect(() => {
         const onResize = (_event?: Event, animate = true): void => {
@@ -75,16 +67,24 @@ function Camera() {
                 controlsRef.current.rotateTo(DEFAULT_CAMERA_ROTATION.azimuth, DEFAULT_CAMERA_ROTATION.polar, false);
                 onResize(undefined, false);
 
-                locked.current = false;
+                locked.current = true;
 
-                // controlsRef.current.disconnect();
+                controlsRef.current.disconnect();
             }
         };
 
         setupCameraControls();
 
+        const unsubCameraPositionUpdater = playerPosition.listen((position) => {
+            if (locked.current) return;
+            if (controlsRef.current) {
+                controlsRef.current.moveTo(position.x, position.y + 0.75, position.z, true);
+            }
+        });
+
         window.addEventListener('resize', onResize);
         return () => {
+            unsubCameraPositionUpdater();
             window.removeEventListener('resize', onResize);
         };
     }, []);
