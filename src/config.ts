@@ -21,6 +21,12 @@ export const DEFAULT_CAMERA_ROTATION = {
     polar: Math.PI / 16,
 };
 
+export const DEFAULT_PLAYER_POSITION = {
+    x: -79.58,
+    y: 0,
+    z: -9.26,
+};
+
 export const SCENE_NUMBER = 6;
 
 export const SCENES_DISCOVERY_CAMERA_ANGLE = [
