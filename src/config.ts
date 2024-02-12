@@ -27,6 +27,8 @@ export const DEFAULT_PLAYER_POSITION = {
     z: -9.26,
 };
 
+export const FADE_TIME = 2;
+
 export const SCENE_NUMBER = 6;
 
 export const SCENES_DISCOVERY_CAMERA_ANGLE = [
