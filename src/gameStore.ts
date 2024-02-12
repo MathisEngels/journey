@@ -1,24 +1,12 @@
 import { atom, computed, map } from 'nanostores';
 import { Vector3 } from 'three';
-import { isInTrigger } from './utils/gameUtils';
 import { TRIGGER_POINTS_POI } from './config';
+import { isInTrigger } from './utils/gameUtils';
 
-export const playerPosition = map<Vector3>(new Vector3(0, 0, 0));
+export const currentTutorialInstruction = atom(0);
 
-export function setPlayerPosition(v: Vector3) {
-    playerPosition.set(new Vector3(v.x, v.y, v.z));
-}
-
-export const playerOpacity = atom<number>(1);
-
-export function setPlayerOpacity(opacity: number) {
-    playerOpacity.set(opacity);
-}
-
-export const targetPosition = map<Vector3>(new Vector3(0, -1, 0));
-
-export function setTargetPosition(v: Vector3) {
-    targetPosition.set(new Vector3(v.x, v.y, v.z));
+export function setCurrentTutorialInstruction(instructions: number) {
+    currentTutorialInstruction.set(instructions);
 }
 
 export const lastSceneTimelineStarted = atom(0);
@@ -33,6 +21,30 @@ export function setLastSceneTimelineCompleted(scene: number) {
     lastSceneTimelineCompleted.set(scene);
 }
 
+export const loaderFade = atom(false);
+
+export function setLoaderFade(fade: boolean) {
+    loaderFade.set(fade);
+}
+
+export const playerOpacity = atom<number>(1);
+
+export function setPlayerOpacity(opacity: number) {
+    playerOpacity.set(opacity);
+}
+
+export const playerPosition = map<Vector3>(new Vector3(0, 0, 0));
+
+export function setPlayerPosition(v: Vector3) {
+    playerPosition.set(new Vector3(v.x, v.y, v.z));
+}
+
+export const targetPosition = map<Vector3>(new Vector3(0, -1, 0));
+
+export function setTargetPosition(v: Vector3) {
+    targetPosition.set(new Vector3(v.x, v.y, v.z));
+}
+
 export const currentPOI = computed(playerPosition, (position) => {
     let newPOI = -1;
 
@@ -45,9 +57,3 @@ export const currentPOI = computed(playerPosition, (position) => {
 
     return newPOI;
 });
-
-export const loaderFade = atom(false);
-
-export function setLoaderFade(fade: boolean) {
-    loaderFade.set(fade);
-}

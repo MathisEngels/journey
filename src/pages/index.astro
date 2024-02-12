@@ -1,11 +1,36 @@
 ---
-import '@/styles/globals.css'
+import Fiber from '@/components/game/Fiber.tsx'
+import Loader from '@/components/ui/Loader.tsx'
+import LoaderAction from '@/components/ui/LoaderAction.tsx'
+import LoaderContent from '@/components/ui/LoaderContent.astro'
+import LoaderHeader from '@/components/ui/LoaderHeader.astro'
+import Tutorial from '@/components/ui/Tutorial.astro'
+import TutorialInstruction from '@/components/ui/TutorialInstruction.tsx'
 import Layout from '@/layouts/Layout.astro'
-import Fiber from '@/components/Fiber'
+import '@/styles/globals.css'
 ---
 
 <Layout>
     <main style="height: 100vh">
         <Fiber client:load />
+
+        <Tutorial>
+            <TutorialInstruction index={1}>Move around by right clicking.</TutorialInstruction>
+            <TutorialInstruction index={2}>Enter the circle to begin the interactive experience.</TutorialInstruction>
+            <TutorialInstruction index={3}>Explore the surroundings by clicking and holding the left button.</TutorialInstruction>
+        </Tutorial>
+
+        <Loader>
+            <LoaderHeader>
+                <Fragment slot="title">Mathis Engels</Fragment>
+                <Fragment slot="description">Freelance Fullstack Dev</Fragment>
+            </LoaderHeader>
+            <LoaderContent>
+                <h3 class="font-normal text-2xl md:text-4xl">Hi!</h3>
+                <p>I'm Mathis, a freelance fullstack developer passionate about building engaging and enjoyable digital experiences. </p>
+                <p>Step onto my path, explore my capabilities, and discover the value my services can bring to your projects.</p>
+            </LoaderContent>
+            <LoaderAction>Explore my path</LoaderAction>
+        </Loader>
     </main>
 </Layout>
