@@ -45,3 +45,9 @@ export const currentPOI = computed(playerPosition, (position) => {
 
     return newPOI;
 });
+
+export const loaderFade = atom(false);
+
+export function setLoaderFade(fade: boolean) {
+    loaderFade.set(fade);
+}
