@@ -1,5 +1,5 @@
 import { DEFAULT_PLAYER_POSITION } from '@/config';
-import { playerOpacity, setPlayerPosition, targetPosition } from '@/gameStore';
+import { playerOpacity, playerPosition, setCurrentTutorialInstruction, setPlayerPosition, targetPosition } from '@/gameStore';
 import { useStore } from '@nanostores/react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -7,7 +7,7 @@ import { RapierRigidBody, RigidBody, useRapier } from '@react-three/rapier';
 import { useEffect, useRef, useState } from 'react';
 import { Group, LoopOnce, MathUtils, Mesh, Object3D, Quaternion, Vector3, type Object3DEventMap } from 'three';
 
-const playerPosition = new Vector3();
+const position = new Vector3();
 const direction = new Vector3();
 const newPlayerPosition = new Vector3();
 
@@ -59,9 +59,19 @@ function Player() {
 
         if (actions['Sleeping']) actions['Sleeping'].play();
 
+        const unsubscribeTutorialUpdater = playerPosition.listen(() => {
+            setCurrentTutorialInstruction(0);
+            unsubscribeTutorialUpdater();
+
+            setTimeout(() => {
+                setCurrentTutorialInstruction(2);
+            }, 250);
+        });
+
         return () => {
             playerControllerRef.current?.free();
             playerControllerRef.current = null;
+            unsubscribeTutorialUpdater();
         };
     }, []);
 
@@ -72,16 +82,16 @@ function Player() {
 
         while (accumulator >= fixedDeltaTime) {
             if (wokeUp && $target) {
-                playerPosition.copy(playerRigidBodyRef.current.translation());
+                position.copy(playerRigidBodyRef.current.translation());
 
-                const distance = Math.round($target.distanceTo(playerPosition) * 1000) / 1000;
+                const distance = Math.round($target.distanceTo(position) * 1000) / 1000;
                 const speed = (1 - Math.pow(0.01, fixedDeltaTime)) * Math.min(distance, 1);
 
                 if (distance > speed && speed > 0) {
-                    setPlayerPosition(playerPosition);
+                    setPlayerPosition(position);
 
                     const factor = 1.5 - Math.pow(0.1, fixedDeltaTime);
-                    direction.subVectors($target, playerPosition).normalize().multiplyScalar(speed);
+                    direction.subVectors($target, position).normalize().multiplyScalar(speed);
 
                     // Rotation
                     if (distance > 0.5) {
@@ -114,7 +124,7 @@ function Player() {
 
                     const movement = playerControllerRef.current.computedMovement();
 
-                    newPlayerPosition.set(playerPosition.x + movement.x, playerPosition.y + movement.y, playerPosition.z + movement.z);
+                    newPlayerPosition.set(position.x + movement.x, position.y + movement.y, position.z + movement.z);
 
                     playerRigidBodyRef.current.setNextKinematicTranslation(newPlayerPosition);
                 }

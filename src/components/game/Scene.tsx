@@ -1,5 +1,11 @@
 import { ANIMATION_DELAY, ANIMATION_DURATION, ANIMATION_Y, SCENE_NUMBER, TRIGGER_POINTS_SCENE_REVEAL } from '@/config';
-import { lastSceneTimelineStarted, playerPosition, setLastSceneTimelineCompleted, setLastSceneTimelineStarted } from '@/gameStore';
+import {
+    lastSceneTimelineStarted,
+    playerPosition,
+    setCurrentTutorialInstruction,
+    setLastSceneTimelineCompleted,
+    setLastSceneTimelineStarted,
+} from '@/gameStore';
 import { isInTrigger } from '@/utils/gameUtils';
 import { useAnimations, useGLTF, useTexture } from '@react-three/drei';
 import type { MeshProps } from '@react-three/fiber';
@@ -129,8 +135,23 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
             }
         });
 
+        let unsubcribeTutorialUpdater = () => {};
+        if (sceneNumber === 1) {
+            unsubcribeTutorialUpdater = playerPosition.listen((position) => {
+                if (isInTrigger(position, TRIGGER_POINTS_SCENE_REVEAL[sceneNumber - 1])) {
+                    setCurrentTutorialInstruction(0);
+                    unsubcribeTutorialUpdater();
+
+                    setTimeout(() => {
+                        setCurrentTutorialInstruction(3);
+                    }, 250);
+                }
+            });
+        }
+
         return () => {
             unlisten();
+            unsubcribeTutorialUpdater();
         };
     }, []);
 

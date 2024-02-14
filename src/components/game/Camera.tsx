@@ -7,7 +7,7 @@ import {
     SCENES_DISCOVERY_CAMERA_ANGLE,
     SCENE_NUMBER,
 } from '@/config';
-import { lastSceneTimelineStarted, playerOpacity, playerPosition, setPlayerOpacity } from '@/gameStore';
+import { lastSceneTimelineStarted, playerOpacity, playerPosition, setCurrentTutorialInstruction, setPlayerOpacity } from '@/gameStore';
 import { useStore } from '@nanostores/react';
 import { CameraControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
@@ -117,10 +117,19 @@ function Camera() {
             }
         });
 
+        const tutorialUpdater = () => {
+            setTimeout(() => {
+                setCurrentTutorialInstruction(0);
+                controlsRef.current?.removeEventListener('control', tutorialUpdater);
+            }, 1000);
+        };
+        controlsRef.current?.addEventListener('control', tutorialUpdater);
+
         window.addEventListener('resize', onResize);
         return () => {
             unsubCameraPositionUpdater();
             unlistenSceneDiscoveryAnimation();
+            controlsRef.current?.removeEventListener('control', tutorialUpdater);
             window.removeEventListener('resize', onResize);
         };
     }, []);
