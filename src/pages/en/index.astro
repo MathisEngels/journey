@@ -1,0 +1,120 @@
+---
+import Fiber from "@/components/game/Fiber.tsx";
+import EndSceneContactForm from "@/components/ui/EndSceneContactForm";
+import Link from "@/components/ui/Link.astro";
+import Loader from "@/components/ui/Loader.astro";
+import LoaderAction from "@/components/ui/LoaderAction.tsx";
+import LoaderContent from "@/components/ui/LoaderContent.astro";
+import LoaderFooter from "@/components/ui/LoaderFooter.astro";
+import LoaderHeader from "@/components/ui/LoaderHeader.astro";
+import POIDrawer from "@/components/ui/POIDrawer.tsx";
+import SideMenu from "@/components/ui/SideMenu.tsx";
+import SideMenuLink from "@/components/ui/SideMenuLink.astro";
+import Tutorial from "@/components/ui/Tutorial.astro";
+import TutorialInstruction from "@/components/ui/TutorialInstruction.tsx";
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/globals.css";
+import { getLangFromUrl } from "@/utils/i18nUtils";
+import { getCollection } from "astro:content";
+
+
+const locale = getLangFromUrl(Astro.url);
+
+const MOBILE = "(max-width: 768px)";
+const DESKTOP = "(min-width: 768px)";
+const POICollection = await getCollection("POI", ({ id }) => {
+    return id.startsWith(`${locale}/`);
+});
+const { Content: POI1 } = await POICollection[0].render();
+const { Content: POI2 } = await POICollection[1].render();
+const { Content: POI3 } = await POICollection[2].render();
+const { Content: POI4 } = await POICollection[3].render();
+const { Content: POI5 } = await POICollection[4].render();
+const { Content: POI6 } = await POICollection[5].render();
+
+const contactFormTranslations = {
+    submitLoading: "Sending...",
+    submitSuccess: "Message sent!",
+    submitError: "Something went wrong",
+    copiedToClipboard: "Copied in clipboard!",
+    cardTitle: "Let's connect!",
+    cardDescription: "If you prefer, you can reach me at ",
+    formName: "Name",
+    formMessagePlaceholder: "Hi...",
+    formMessageDescription: "I always open to new opporutnies and collaborations. Feel free to ask me anything or just say hi!",
+    formSubmit: "Send",
+    formCancel: "No, I'm good"
+}
+
+const seo = {
+    title: "Mathis Engels | Portfolio",
+    description: "I'm Mathis, a freelance fullstack developer passionate about creating engaging and enjoyable digital experiences. Follow my path, explore my skills, and discover the value that my services can bring to your projects.",
+    languageAlternates: [
+        {
+            hrefLang: "fr",
+            href: "/"
+        }
+    ],
+    ogLocale: "en_US",
+    ogLocaleAlternate: ["fr_FR"],
+}
+---
+
+<Layout seo={seo}>
+    <Fiber client:idle />
+
+    <Tutorial>
+        <TutorialInstruction index={1} client:media={MOBILE}>Move around by double tapping.</TutorialInstruction>
+        <TutorialInstruction index={1} client:media={DESKTOP}>Move around by right clicking.</TutorialInstruction>
+        <TutorialInstruction index={2} client:visible>Enter the circle to begin the interactive experiences.</TutorialInstruction>
+        <TutorialInstruction index={3} client:media={MOBILE}>Explore the surroundings by dragging your finger across the screen.</TutorialInstruction>
+        <TutorialInstruction index={3} client:media={DESKTOP}>Explore the surroundings by holding left click.</TutorialInstruction>
+    </Tutorial>
+        
+    <POIDrawer client:visible>
+        <p slot="poi-1-title">{POICollection[0].data.title}</p>
+        <POI1 slot="poi-1" />
+        <p slot="poi-2-title">{POICollection[1].data.title}</p>
+        <POI2 slot="poi-2" />
+        <p slot="poi-3-title">{POICollection[2].data.title}</p>
+        <POI3 slot="poi-3" />
+        <p slot="poi-4-title">{POICollection[3].data.title}</p>
+        <POI4 slot="poi-4" />
+        <p slot="poi-5-title">{POICollection[4].data.title}</p>
+        <POI5 slot="poi-5" />
+        <p slot="poi-6-title">{POICollection[5].data.title}</p>
+        <POI6 slot="poi-6" />
+        <p slot="learn-more">Learn more</p>
+    </POIDrawer>
+
+    <EndSceneContactForm translations={contactFormTranslations} client:visible />
+
+    <Loader>
+        <LoaderHeader>
+            <Fragment slot="title">Mathis Engels</Fragment>
+            <Fragment slot="description">Freelance Fullstack Dev</Fragment>
+        </LoaderHeader>
+        <LoaderContent>
+            <h3 class="font-normal text-2xl md:text-4xl">Hi !</h3>
+            <p>I'm Mathis, a freelance fullstack developer passionate about creating engaging and enjoyable digital experiences.</p>
+            <p>Follow my path, explore my skills, and discover the value that my services can bring to your projects.</p>
+        </LoaderContent>
+        <LoaderFooter>
+            <LoaderAction client:load>Explore my path</LoaderAction>
+            <p class="text-md font-light">Or go directly to <Link href="/en/about">About</Link>, <Link href="/en/projects">Projects</Link>, <Link href="/en/resume">Resume</Link>, <Link href="/en/contact">Contact</Link> pages!</p>
+            <p class="font-extralight"><Link href="/">FR Version</Link></p>
+        </LoaderFooter>
+    </Loader>
+
+    <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:idle>
+        <ul class="space-y-4">
+            <SideMenuLink href="/en">Portfolio</SideMenuLink>
+            <SideMenuLink href="/en/about">About</SideMenuLink>
+            <SideMenuLink href="/en/projects">Projects</SideMenuLink>
+            <SideMenuLink href="/en/resume">Resume</SideMenuLink>
+            <SideMenuLink href="/en/contact">Contact</SideMenuLink>
+            <SideMenuLink href="/en/legal">Legal</SideMenuLink>
+            <SideMenuLink href="/">FR Version</SideMenuLink>
+        </ul>
+    </SideMenu>
+</Layout>
