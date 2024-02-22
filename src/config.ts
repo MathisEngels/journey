@@ -147,3 +147,7 @@ export const TRIGGER_POINTS_SCENE_REVEAL = [
         zMax: 7,
     },
 ];
+
+export const CONTACT_API = 'https://api.mathisengels.fr/contact';
+
+export const CONTACT_EMAIL = 'contact@mathisengels.fr';

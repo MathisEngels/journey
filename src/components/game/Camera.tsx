@@ -7,7 +7,15 @@ import {
     SCENES_DISCOVERY_CAMERA_ANGLE,
     SCENE_NUMBER,
 } from '@/config';
-import { lastSceneTimelineStarted, playerOpacity, playerPosition, setCurrentTutorialInstruction, setPlayerOpacity } from '@/gameStore';
+import {
+    endOfExperience,
+    lastSceneTimelineStarted,
+    planePosition,
+    playerOpacity,
+    playerPosition,
+    setCurrentTutorialInstruction,
+    setPlayerOpacity,
+} from '@/gameStore';
 import { useStore } from '@nanostores/react';
 import { CameraControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
@@ -36,6 +44,7 @@ function Camera() {
     }, []);
 
     const $playerOpacity = useStore(playerOpacity);
+    const $endOfExperience = useStore(endOfExperience);
 
     useEffect(() => {
         const onResize = (_event?: Event, animate = true): void => {
@@ -83,8 +92,17 @@ function Camera() {
 
         setupCameraControls();
 
-        const unsubCameraPositionUpdater = playerPosition.listen((position) => {
+        const unsubCameraPlayerPositionUpdater = playerPosition.listen((position) => {
             if (locked.current) return;
+            if ($endOfExperience) return;
+            if (controlsRef.current) {
+                controlsRef.current.moveTo(position.x, position.y + 0.75, position.z, true);
+            }
+        });
+
+        const unsubCameraPlanePositionUpdater = planePosition.listen((position) => {
+            if (locked.current) return;
+            if (!$endOfExperience) return;
             if (controlsRef.current) {
                 controlsRef.current.moveTo(position.x, position.y + 0.75, position.z, true);
             }
@@ -127,7 +145,8 @@ function Camera() {
 
         window.addEventListener('resize', onResize);
         return () => {
-            unsubCameraPositionUpdater();
+            unsubCameraPlayerPositionUpdater();
+            unsubCameraPlanePositionUpdater();
             unlistenSceneDiscoveryAnimation();
             controlsRef.current?.removeEventListener('control', tutorialUpdater);
             window.removeEventListener('resize', onResize);
@@ -136,6 +155,7 @@ function Camera() {
 
     const onCameraChange = (e?: { type: 'update' } | { target: { distance: number } }) => {
         if (e && 'target' in e) {
+            if ($endOfExperience) return;
             const distance = e.target.distance;
 
             if ((previousDistance.current !== distance && distance <= 5) || ($playerOpacity !== 1 && distance > 5)) {

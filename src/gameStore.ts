@@ -45,13 +45,25 @@ export function setTargetPosition(v: Vector3) {
     targetPosition.set(new Vector3(v.x, v.y, v.z));
 }
 
-export const currentPOI = computed(playerPosition, (position) => {
+export const endOfExperience = atom(false);
+
+export function setEndOfExperience(end: boolean) {
+    endOfExperience.set(end);
+}
+
+export const planePosition = map<Vector3>(new Vector3(0, 0, 0));
+
+export function setPlanePosition(v: Vector3) {
+    playerPosition.set(new Vector3(v.x, v.y, v.z));
+}
+
+export const currentPOI = computed([playerPosition, endOfExperience], (position, endOfExperience) => {
     let newPOI = -1;
 
     for (let i = 0; i < TRIGGER_POINTS_POI.length; i++) {
         if (isInTrigger(position, TRIGGER_POINTS_POI[i])) {
             newPOI = i;
-            break;
+            if (newPOI !== TRIGGER_POINTS_POI.length - 2 || endOfExperience) break;
         }
     }
 
