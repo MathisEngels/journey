@@ -31,12 +31,13 @@ function Lights() {
 
     return (
         <>
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={0.9} />
             <directionalLight
                 ref={ref}
                 target={target}
                 position={[DEFAULT_PLAYER_POSITION.x + 4.5, DEFAULT_PLAYER_POSITION.y + 5.25, DEFAULT_PLAYER_POSITION.z + 5]}
                 castShadow
+                intensity={1.1}
                 shadow-mapSize={[2048, 2048]}
                 shadow-camera-near={0.5}
                 shadow-camera-far={20}

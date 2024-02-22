@@ -1,8 +1,8 @@
 export const ANIMATION_DELAY = 1.5;
 
-export const ANIMATION_DURATION = 2;
+export const ANIMATION_DURATION = 3;
 
-export const ANIMATION_Y = 15;
+export const ANIMATION_Y = 35;
 
 export const CAMERA_MIN_DISTANCE = 1;
 
@@ -96,16 +96,10 @@ export const TRIGGER_POINTS_POI = [
         zMax: -7.5,
     },
     {
-        xMin: 219.5,
-        zMin: 7.5,
-        xMax: 228,
-        zMax: 15,
-    },
-    {
-        xMin: 238,
-        zMin: 7.5,
-        xMax: 249,
-        zMax: 18,
+        xMin: 41.3302,
+        zMin: -5.7628,
+        xMax: 46.0705,
+        zMax: -1.02247,
     },
 ];
 
