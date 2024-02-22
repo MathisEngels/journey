@@ -1,4 +1,4 @@
-import { ANIMATION_DELAY, ANIMATION_DURATION, ANIMATION_Y, SCENE_NUMBER, TRIGGER_POINTS_SCENE_REVEAL } from '@/config';
+import { ANIMATION_DELAY, ANIMATION_DURATION, ANIMATION_Y, TRIGGER_POINTS_SCENE_REVEAL } from '@/config';
 import {
     lastSceneTimelineStarted,
     playerPosition,
@@ -16,6 +16,7 @@ import { BufferGeometry, DoubleSide, Group, Mesh, MeshStandardMaterial, Object3D
 import { BufferGeometryUtils } from 'three/examples/jsm/Addons.js';
 
 function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animationFunction?: () => void }) {
+    useGLTF.preload(`/scene-${sceneNumber}-c.glb`);
     const group = useRef<Object3D>(null);
 
     const { nodes, animations } = useGLTF(`/scene-${sceneNumber}-c.glb`);
@@ -88,7 +89,7 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
         }
 
         if (group.current) {
-            group.current.visible = true;
+            group.current.visible = false;
 
             let animatedMeshes = 0;
 
@@ -152,6 +153,7 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
         return () => {
             unlisten();
             unsubcribeTutorialUpdater();
+            useGLTF.clear(`/scene-${sceneNumber}-c.glb`);
         };
     }, []);
 
@@ -199,10 +201,6 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
             })}
         </group>
     );
-}
-
-for (let i = 0; i < SCENE_NUMBER; i++) {
-    useGLTF.preload(`/scene-${i + 1}-c.glb`);
 }
 
 export default Scene;

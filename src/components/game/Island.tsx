@@ -1,10 +1,10 @@
 import { SCENE_NUMBER } from '@/config';
+import { lastSceneTimelineCompleted } from '@/gameStore';
+import { setTarget, setTargetForMobile } from '@/utils/gameUtils';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import { useEffect, useMemo, useState } from 'react';
 import { LinearFilter, Mesh, MeshStandardMaterial, SRGBColorSpace, Texture } from 'three';
-import { setTarget } from '../../utils/gameUtils';
-import { lastSceneTimelineCompleted } from '@/gameStore';
 
 function Island() {
     const [texture, setTexture] = useState<Texture>();
@@ -30,6 +30,10 @@ function Island() {
 
         return () => {
             unsubscribe();
+            useGLTF.clear('/world-c.glb');
+            for (let i = 0; i <= SCENE_NUMBER; i++) {
+                useTexture.clear(`/textures/World-texture-${i}.jpg`);
+            }
         };
     }, []);
 
@@ -43,8 +47,16 @@ function Island() {
                     position={[-80, 0, -8.858]}
                     receiveShadow
                     onContextMenu={setTarget}
+                    onClick={setTargetForMobile}
                 />
-                <mesh name="Ground" geometry={(nodes.Ground as Mesh).geometry} material={textureMaterial} receiveShadow onContextMenu={setTarget} />
+                <mesh
+                    name="Ground"
+                    geometry={(nodes.Ground as Mesh).geometry}
+                    material={textureMaterial}
+                    receiveShadow
+                    onContextMenu={setTarget}
+                    onClick={setTargetForMobile}
+                />
             </RigidBody>
         </>
     );

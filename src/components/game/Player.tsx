@@ -72,6 +72,7 @@ function Player() {
             playerControllerRef.current?.free();
             playerControllerRef.current = null;
             unsubscribeTutorialUpdater();
+            useGLTF.clear('/player-c.glb');
         };
     }, []);
 
