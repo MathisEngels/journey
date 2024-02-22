@@ -1,8 +1,8 @@
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { loaderFade } from '@/gameStore';
 import { useStore } from '@nanostores/react';
 import { Github, Linkedin, Menu } from 'lucide-react';
-import { Button, buttonVariants } from './button';
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './sheet';
 
 interface SideMenuProps {
     title: string;
@@ -31,7 +31,7 @@ export function SideMenu(props: SideMenuProps) {
                                 <h3 className="font-light">{description}</h3>
                             </header>
                         </SheetTitle>
-                        <SheetDescription className="flex flex-col pl-4 text-xl">
+                        <SheetDescription className="flex flex-col pl-4 text-xl" asChild>
                             <nav>{children}</nav>
                         </SheetDescription>
                         <SheetFooter className="!mt-auto">

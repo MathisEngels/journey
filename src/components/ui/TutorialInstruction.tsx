@@ -1,6 +1,6 @@
+import { Card } from '@/components/ui/card';
 import { currentTutorialInstruction } from '@/gameStore';
 import { useStore } from '@nanostores/react';
-import { Card } from './card';
 
 interface TutorialInstructionsProps {
     index: number;
