@@ -1,14 +1,55 @@
+---
+import { Toaster } from "@/components/ui/sonner";
+import { SEO } from "astro-seo";
+
+interface Props {
+    seo: {
+        title: string;
+        description: string;
+        languageAlternates?: {
+            hrefLang: string;
+            href: string;
+        }[];
+        ogLocale: string;
+        ogLocaleAlternate?: string[];
+    }
+}
+
+const { seo } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="description" content="Astro description" />
+        <SEO 
+            title={seo.title}
+            titleDefault="Mathis Engels | Portfolio"
+            description={seo.description}
+            charset="UTF-8"
+            languageAlternates={seo.languageAlternates}
+            openGraph={{
+                basic: {
+                    title: seo.title,
+                    type: "website",
+                    image: "https://mathisengels.fr/og-image.webp",
+                },
+                image: {
+                    alt: "Mathis Engels's logo",
+                },
+                optional: {
+                    locale: seo.ogLocale,
+                    localeAlternate: seo.ogLocaleAlternate,
+                }
+            }} />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>Mathis Engels</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <script defer data-domain="mathisengels.fr" src="https://plausible.local.mathisengels.fr/js/script.js"></script>
     </head>
     <body>
-        <slot />
+        <main class="h-[100dvh]">
+            <slot />
+        </main>
+        <Toaster client:idle />
     </body>
 </html>
