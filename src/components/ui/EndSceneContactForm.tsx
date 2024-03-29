@@ -1,4 +1,4 @@
-import { endOfExperience } from '@/gameStore';
+import { endOfExperience } from '@/stores/gameStore';
 import { useEffect, useState } from 'react';
 import ContactForm, { type ContactFormProps } from './ContactForm';
 

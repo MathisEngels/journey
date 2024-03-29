@@ -1,5 +1,5 @@
 import { SCENE_NUMBER } from '@/config';
-import { lastSceneTimelineCompleted } from '@/gameStore';
+import { lastSceneTimelineCompleted } from '@/stores/gameStore';
 import { setTarget, setTargetForMobile } from '@/utils/gameUtils';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';

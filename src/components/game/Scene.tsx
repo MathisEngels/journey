@@ -5,7 +5,7 @@ import {
     setCurrentTutorialInstruction,
     setLastSceneTimelineCompleted,
     setLastSceneTimelineStarted,
-} from '@/gameStore';
+} from '@/stores/gameStore';
 import { isInTrigger } from '@/utils/gameUtils';
 import { useAnimations, useGLTF, useTexture } from '@react-three/drei';
 import type { MeshProps } from '@react-three/fiber';

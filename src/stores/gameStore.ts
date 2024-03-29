@@ -1,7 +1,7 @@
 import { atom, computed, map } from 'nanostores';
 import { Vector3 } from 'three';
-import { TRIGGER_POINTS_POI } from './config';
-import { isInTrigger } from './utils/gameUtils';
+import { TRIGGER_POINTS_POI } from '../config';
+import { isInTrigger } from '../utils/gameUtils';
 
 export const currentTutorialInstruction = atom(0);
 

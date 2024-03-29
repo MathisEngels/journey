@@ -1,6 +1,6 @@
 import { FADE_TIME, SCENE_NUMBER } from '@/config';
 import grassBladeData from '@/data/grassBladeData.json';
-import { lastSceneTimelineStarted } from '@/gameStore';
+import { lastSceneTimelineStarted } from '@/stores/gameStore';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BufferAttribute, BufferGeometry, DoubleSide, Mesh, RepeatWrapping, ShaderMaterial, Texture, TextureLoader } from 'three';

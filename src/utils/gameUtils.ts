@@ -1,5 +1,5 @@
 import { SCENE_NUMBER } from '@/config';
-import { setTargetPosition } from '@/gameStore';
+import { setTargetPosition } from '@/stores/gameStore';
 import { useGLTF } from '@react-three/drei';
 import type { ThreeEvent } from '@react-three/fiber';
 import { Mesh, Vector3 } from 'three';

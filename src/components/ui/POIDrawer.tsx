@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerPortal } from '@/components/ui/drawer';
 import { TRIGGER_POINTS_POI } from '@/config';
-import { currentPOI, setEndOfExperience } from '@/gameStore';
+import { currentPOI, setEndOfExperience } from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 import { ChevronDownIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';

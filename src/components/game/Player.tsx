@@ -1,5 +1,5 @@
 import { DEFAULT_PLAYER_POSITION } from '@/config';
-import { playerOpacity, playerPosition, setCurrentTutorialInstruction, setPlayerPosition, targetPosition } from '@/gameStore';
+import { playerOpacity, playerPosition, setCurrentTutorialInstruction, setPlayerPosition, targetPosition } from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';

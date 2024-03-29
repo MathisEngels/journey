@@ -1,6 +1,6 @@
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { loaderFade } from '@/gameStore';
+import { loaderFade } from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 import { Github, Linkedin, Menu } from 'lucide-react';
 

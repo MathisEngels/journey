@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { currentTutorialInstruction } from '@/gameStore';
+import { currentTutorialInstruction } from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 
 interface TutorialInstructionsProps {

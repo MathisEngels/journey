@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { setCurrentTutorialInstruction, setLoaderFade } from '@/gameStore';
+import { setCurrentTutorialInstruction, setLoaderFade } from '@/stores/gameStore';
+import { loaded } from '@/stores/uiStore';
 import { useProgress } from '@react-three/drei';
 import { ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -16,9 +17,21 @@ function LoaderAction(props: LoaderActionProps) {
 
     useEffect(() => {
         if (progress === 100) {
-            setProgressValue((prev) => prev + 100 / 6);
+            setProgressValue((prev) => {
+                return prev + 100 / (5 + 1);
+            });
         }
     }, [progress]);
+
+    useEffect(() => {
+        const unsubscribe = loaded.subscribe((value) => {
+            if (value === 1) setProgressValue(100);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     const onClick = () => {
         setLoaderFade(true);
@@ -27,10 +40,10 @@ function LoaderAction(props: LoaderActionProps) {
 
     return (
         <div className="w-56 h-12">
-            {progress !== 100 ? (
-                <Progress value={progressValue} className={'rounded-md size-full'} />
+            {progressValue !== 100 ? (
+                <Progress value={progressValue} className={'animate-pulse rounded-md size-full'} />
             ) : (
-                <Button className={'size-full pr-2 text-xl'} disabled={progress !== 100} onClick={onClick}>
+                <Button className={'size-full pr-2 text-xl'} disabled={progressValue !== 100} onClick={onClick}>
                     {children}
                     <ChevronRight size={32} className="animate-bounce-rl" />
                 </Button>

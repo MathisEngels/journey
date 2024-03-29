@@ -1,4 +1,4 @@
-import { targetPosition } from '@/gameStore';
+import { targetPosition } from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 import { useGLTF } from '@react-three/drei';
 import { useEffect } from 'react';

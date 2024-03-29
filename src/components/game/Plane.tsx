@@ -1,6 +1,5 @@
 import { ANIMATION_DURATION, ANIMATION_Y, SCENE_NUMBER } from '@/config';
-import { endOfExperience, lastSceneTimelineCompleted, setEndOfExperience, setPlanePosition } from '@/gameStore';
-import { useAnimations, useGLTF } from '@react-three/drei';
+import { endOfExperience, lastSceneTimelineCompleted, setEndOfExperience, setPlanePosition } from '@/stores/gameStore';
 import { useFrame, useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';

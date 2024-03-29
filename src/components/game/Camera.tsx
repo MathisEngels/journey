@@ -15,11 +15,11 @@ import {
     playerPosition,
     setCurrentTutorialInstruction,
     setPlayerOpacity,
-} from '@/gameStore';
+} from '@/stores/gameStore';
 import { useStore } from '@nanostores/react';
 import { CameraControls } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Vector3 } from 'three';
 import type { Object3D } from 'three/src/core/Object3D.js';
 import type { Mesh } from 'three/src/objects/Mesh.js';
@@ -28,20 +28,9 @@ function Camera() {
     const controlsRef = useRef<CameraControls>(null);
     const { gl, scene } = useThree();
 
+    const [colliderMeshes, setColliderMeshes] = useState<Mesh[]>();
     const locked = useRef<boolean>(true);
     const previousDistance = useRef<number>(0);
-
-    const colliderMeshes = useMemo(() => {
-        const meshes: Mesh[] = [];
-
-        scene.traverse((child: Object3D) => {
-            if ((child as Mesh).isMesh && child.name !== 'player' && child.name !== 'Chemin') {
-                meshes.push(child as Mesh);
-            }
-        });
-
-        return meshes;
-    }, []);
 
     const $playerOpacity = useStore(playerOpacity);
     const $endOfExperience = useStore(endOfExperience);
@@ -65,6 +54,22 @@ function Camera() {
             }
         };
 
+        const computeColliderMeshes = () => {
+            const meshes: Mesh[] = [];
+
+            const nonCollidersMeshes = ['Player', 'Chemin', 'Avion', 'Pales.003'];
+
+            scene.traverse((child: Object3D) => {
+                if ((child as Mesh).isMesh && !nonCollidersMeshes.includes(child.name)) {
+                    meshes.push(child as Mesh);
+                }
+            });
+
+            setColliderMeshes(meshes);
+        };
+
+        computeColliderMeshes();
+
         const setupCameraControls = () => {
             if (controlsRef.current) {
                 controlsRef.current.smoothTime = CAMERA_TRANSITION_SPEED;
@@ -78,7 +83,6 @@ function Camera() {
                     right: 0,
                     wheel: 8,
                 };
-                controlsRef.current.colliderMeshes = colliderMeshes;
 
                 controlsRef.current.moveTo(DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z, false);
                 controlsRef.current.rotateTo(DEFAULT_CAMERA_ROTATION.azimuth, DEFAULT_CAMERA_ROTATION.polar, false);
@@ -130,7 +134,6 @@ function Camera() {
                     break;
             }
             if (lastSceneTimelineStarted === SCENE_NUMBER) {
-                console.log('successfully unlistened scene discovery animation');
                 unlistenSceneDiscoveryAnimation();
             }
         });
@@ -168,7 +171,7 @@ function Camera() {
         }
     };
 
-    return <CameraControls ref={controlsRef} onChange={onCameraChange} />;
+    return <CameraControls ref={controlsRef} colliderMeshes={colliderMeshes} onChange={onCameraChange} />;
 }
 
 export default Camera;

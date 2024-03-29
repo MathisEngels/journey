@@ -1,5 +1,5 @@
 import { DEFAULT_PLAYER_POSITION } from '@/config';
-import { playerPosition } from '@/gameStore';
+import { playerPosition } from '@/stores/gameStore';
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import type { Object3D } from 'three/src/core/Object3D.js';
