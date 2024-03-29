@@ -1,14 +1,22 @@
 import { ANIMATION_DURATION, ANIMATION_Y, SCENE_NUMBER } from '@/config';
 import { endOfExperience, lastSceneTimelineCompleted, setEndOfExperience, setPlanePosition } from '@/stores/gameStore';
+import { useAnimations, useGLTF, useTexture } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
-import { CatmullRomCurve3, Group, Object3D, Vector3, type Object3DEventMap } from 'three';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { CatmullRomCurve3, Group, Mesh, MeshStandardMaterial, Object3D, SRGBColorSpace, Vector3, type Object3DEventMap } from 'three';
 
 function Plane() {
     const group = useRef<Object3D>(null);
-    const { nodes, materials, animations } = useGLTF('/plane-c.glb');
+    const { nodes, animations } = useGLTF('/plane.glb');
     const { actions } = useAnimations(animations, group);
+
+    const texture = useTexture(`/textures/Plane.webp`);
+    texture.flipY = false;
+    texture.colorSpace = SRGBColorSpace;
+    const textureMaterial = useMemo(() => {
+        return new MeshStandardMaterial({ map: texture });
+    }, []);
 
     const [startTime, setStartTime] = useState<number | null>(null);
 
@@ -78,7 +86,7 @@ function Plane() {
         return () => {
             unsubEndOfXP();
             unsubAnimationTrigger();
-            useGLTF.clear('/plane-c.glb');
+            useGLTF.clear('/plane.glb');
         };
     }, []);
 
@@ -122,18 +130,18 @@ function Plane() {
 
     return (
         <group ref={group as React.Ref<Group<Object3DEventMap>>} name="Avion" position={[44.6, 0, -3.393]}>
-            <group>
-                <mesh name="Plane061" geometry={(nodes.Plane061 as THREE.Mesh).geometry} material={materials['Avion blanc']} />
-                <mesh name="Plane061_1" geometry={(nodes.Plane061_1 as THREE.Mesh).geometry} material={materials['Avion bleu']} />
-                <mesh name="Plane061_2" geometry={(nodes.Plane061_2 as THREE.Mesh).geometry} material={materials['Avion fenetre']} />
-                <mesh name="Plane061_3" geometry={(nodes.Plane061_3 as THREE.Mesh).geometry} material={materials['Avion roue']} />
-            </group>
-            <group name="Pales" position={[0.467, 0.662, 0]} rotation={[0, 0, 0.214]}>
-                <mesh name="Plane066" geometry={(nodes.Plane066 as THREE.Mesh).geometry} material={materials['Avion blanc']} />
-                <mesh name="Plane066_1" geometry={(nodes.Plane066_1 as THREE.Mesh).geometry} material={materials['Avion bleu']} />
-            </group>
+            <mesh name="Avion" geometry={(nodes.Avion as Mesh).geometry} material={textureMaterial} />
+            <mesh
+                name="Pales003"
+                geometry={(nodes.Pales003 as Mesh).geometry}
+                material={textureMaterial}
+                position={[0.467, 0.662, 0]}
+                rotation={[0, 0, 0.214]}
+            />
         </group>
     );
 }
+
+useGLTF.preload('/plane.glb');
 
 export default Plane;
