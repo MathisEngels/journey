@@ -1,11 +1,48 @@
 ---
-title: 'en-poi-3'
+title: During my studies, I worked on various personal projects to gain experience.
 ---
 
-# Lorem Ipsum
+import Link from '@/components/ui/Link.astro';
 
-Ut egestas metus neque, vel pulvinar dolor facilisis lacinia. Suspendisse aliquet vestibulum metus, vitae malesuada arcu egestas et. Suspendisse maximus in erat vitae imperdiet. Donec in consequat enim. Morbi bibendum sapien ut dignissim dapibus. Nulla eu lectus vitae lacus finibus viverra non vel est. Duis id nunc id dolor tempus aliquam. Curabitur sollicitudin sed ante a bibendum. Sed tempus ex est, ac ultrices sapien pharetra id. Sed ornare iaculis orci. Proin euismod in sapien ac venenatis. Duis sollicitudin ultrices quam a porta. Ut ut consectetur nisi, a dapibus metus. Praesent eget ex et ante imperdiet tempus.
+# My projects
 
-Donec ultrices consectetur lacus, nec vestibulum magna. Vestibulum at metus eu velit facilisis porta. Donec libero purus, scelerisque sit amet orci sit amet, interdum blandit lectus. Vestibulum sed commodo mi. Cras hendrerit, urna eget imperdiet tincidunt, enim quam suscipit justo, in consectetur odio ligula quis massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate mattis rutrum. Etiam eget felis tincidunt, posuere arcu semper, euismod metus. Quisque vel sapien a lorem mattis malesuada. Sed sit amet vestibulum nisi, nec sagittis enim. Morbi luctus, ipsum vitae elementum dapibus, ante mi lobortis tortor, ut tincidunt purus justo id lacus. Duis placerat, velit sed lacinia iaculis, lectus mauris pulvinar dolor, ac iaculis lorem neque a sapien.
+As said before, I've had the opportunity to work on several projects. In this section, I'd like to present a few of them, you can see the list of my projects <Link>here</Link>.
 
-Mauris a nunc ut nulla hendrerit tristique. Sed ex nisl, pharetra accumsan faucibus quis, pretium eget massa. Nulla volutpat ligula ipsum, vitae ornare erat interdum a. Duis sed nulla et quam pretium placerat. Nunc at sollicitudin ex. Proin sapien odio, pulvinar sit amet felis semper, pretium tempor augue. Integer sed ullamcorper neque. Curabitur dapibus sem tortor, nec molestie dolor tempus a. Sed imperdiet rutrum elit vitae tincidunt. Praesent auctor a diam nec blandit. Phasellus varius mollis dignissim.
+## Moulin dashboard
+
+During my studies, my father had just completely redone his garden. As part of his renovation, he wanted an automatic watering management system. So I decided to create one for him.
+
+To achieve this, I used a Raspberry Pi, several relays and solenoid valves. On the code side, I chose the NextJS framework, so as to learn a new framework, and have the back and front ends in a single codebase.
+I'm also using a MongoDB database to store information in the event of a reboot, and SocketIO to allow several users to be connected simultaneously.
+
+The system is exposed directly on the web, allowing my father to manage his watering from his phone (don't worry, there's an authentication system (Cookie and JWT), and it's exposed on a particular port).
+
+Thanks to this project, you can program how long you want to water, manually trigger the system and some statistics.
+
+After completing the automatic watering, my father came up with the idea of managing the outdoor lighting and the electric gate. So I implemented these functions in the project.
+
+For the lighting, I use a public API to retrieve the sunrise and sunset times, and I've implemented logic that turns the lights on according to the configuration. Currently, the system switches on at sunset and off at 1:00 am.
+
+For the gate, I used a relay to simulate pressing the remote control button. The interface is a simple button that lets you open, stop and close the gate.
+
+This project is still running, and is used daily by my father (for 3 years now).
+
+Thanks to this project, I was able to learn a new framework, and put my knowledge of electronics into practice. I was also able to learn how to manage a project from A to Z, from design to production. Several issues came up, such as the processor architecture to be taken into account, multiple simultaneous users and authentication management.
+This enabled me to develop my skills in web development, electronics and project management.
+
+Even if this project is functional, a redesign would be welcome. The code isn't very clean, and some features could be improved. For example, the interface could be made more intuitive and the logic improved.
+
+Stack: NextJS, NodeJS, SocketIO, MongoDB.
+
+## Homelab
+
+I've been interested in self-hosting for a few years now. So I decided to create my own server.
+I bought another raspberry, to make a small cluster (of 2).
+On this cluster, I've got Docker up and running. I also have a NAS to store my data.
+This little homelab lets me experiment, test new technologies and have fun. So I've been able to dabble in Ansible, Terraform, CI/CD, and selfhosting in general.
+
+I have a VPN that lets me access my local network, and therefore my services, from anywhere. I also have a monitoring system, which lets me see the status of my services, and receive alerts in the event of a problem.
+
+Above all, I've been able to learn a lot about Docker, containerization and deployment. I also took the time to learn how to use cloud platforms like AWS, GCP and Azure.
+
+Stack: Docker, Ansible, Terraform, CI/CD, Cloud.

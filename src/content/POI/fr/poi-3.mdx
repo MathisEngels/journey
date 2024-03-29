@@ -1,11 +1,48 @@
 ---
-title: 'fr-poi-3'
+title: Lors de mes études, j'ai travaillé sur différents projets personnels pour gagner en expérience.
 ---
 
-# Lorem Ipsum
+import Link from '@/components/ui/Link.astro';
 
-Ut egestas metus neque, vel pulvinar dolor facilisis lacinia. Suspendisse aliquet vestibulum metus, vitae malesuada arcu egestas et. Suspendisse maximus in erat vitae imperdiet. Donec in consequat enim. Morbi bibendum sapien ut dignissim dapibus. Nulla eu lectus vitae lacus finibus viverra non vel est. Duis id nunc id dolor tempus aliquam. Curabitur sollicitudin sed ante a bibendum. Sed tempus ex est, ac ultrices sapien pharetra id. Sed ornare iaculis orci. Proin euismod in sapien ac venenatis. Duis sollicitudin ultrices quam a porta. Ut ut consectetur nisi, a dapibus metus. Praesent eget ex et ante imperdiet tempus.
+# Mes projets
 
-Donec ultrices consectetur lacus, nec vestibulum magna. Vestibulum at metus eu velit facilisis porta. Donec libero purus, scelerisque sit amet orci sit amet, interdum blandit lectus. Vestibulum sed commodo mi. Cras hendrerit, urna eget imperdiet tincidunt, enim quam suscipit justo, in consectetur odio ligula quis massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate mattis rutrum. Etiam eget felis tincidunt, posuere arcu semper, euismod metus. Quisque vel sapien a lorem mattis malesuada. Sed sit amet vestibulum nisi, nec sagittis enim. Morbi luctus, ipsum vitae elementum dapibus, ante mi lobortis tortor, ut tincidunt purus justo id lacus. Duis placerat, velit sed lacinia iaculis, lectus mauris pulvinar dolor, ac iaculis lorem neque a sapien.
+Comme dit précédemment, j'ai eu l'occasion de travailler sur plusieurs projets. Dans cette section, je voudrais en présenter quelques-uns, vous pouvez voir la liste de mes projets <Link>ici</Link>.
 
-Mauris a nunc ut nulla hendrerit tristique. Sed ex nisl, pharetra accumsan faucibus quis, pretium eget massa. Nulla volutpat ligula ipsum, vitae ornare erat interdum a. Duis sed nulla et quam pretium placerat. Nunc at sollicitudin ex. Proin sapien odio, pulvinar sit amet felis semper, pretium tempor augue. Integer sed ullamcorper neque. Curabitur dapibus sem tortor, nec molestie dolor tempus a. Sed imperdiet rutrum elit vitae tincidunt. Praesent auctor a diam nec blandit. Phasellus varius mollis dignissim.
+## Moulin dashboard
+
+Lors de mes études, mon père venait de refaire entièrement son jardin. Dans sa rénovation, il souhaitait un système de gestion de l'arrosage automatique. J'ai donc décidé de lui créer ce système.
+
+Pour arriver à mes fins, j'ai utilisé un Raspberry Pi, plusieurs relais et des electro-vannes. Côté code, j'ai choisi le framework NextJS, afin d'apprendre un nouveau framework, et avoir le back et front dans une seul et même codebase.
+J'utilise également une base de données MongoDB pour stocker les informations en cas de redemarrage, et SocketIO permettant d'avoir plusieurs utilisateurs de manière simultanées.
+
+Le système est exposé directement sur le web, ce qui permet à mon père de gérer son arrosage depuis son téléphone (pas d'inquiètude, il y a un système d'authentification (Cookie et JWT), et est exposé sur un port particulier).
+
+Grâce à ce projet, on peut programmer combien de temps on veut arroser, déclencher manuellement le système et quelque statistiques.
+
+Après avoir terminé l'arrosage automatique, mon père a eu l'idée de gérer l'éclairage extérieur ainsi que le portail électrique. J'ai donc implémenter ces fonctionnalités dans le projet.
+
+Pour l'éclairage, j'utilise une API public pour récupérer les heures de lever et coucher du soleil, et j'ai implémenté une logique qui allume les lumières en fonction de la configuration. Actuellement, le système s'allume dès le coucher du soleil et s'éteint à 1h00 du matin.
+
+Pour le portail, j'ai utilisé un relais pour simuler l'appui sur le bouton de la télécommande. Au niveau de l'interface, un simple bouton, qui nous donne la possibilité d'ouvrir, arrêter et fermer le portail.
+
+Ce projet tourne toujours, et est utilisé quotidiennement par mon père (depuis 3 ans maintenant).
+
+Grâce à ce projet, j'ai pu apprendre un nouveau framework, et j'ai pu mettre en pratique mes connaissances en électronique. J'ai également pu apprendre à gérer un projet de A à Z, de la conception à la mise en production. Plusieurs problématiques sont apparues, comme l'architecture du processeur à prendre en compte, plusieurs utilisateurs simultanés, la gestion de l'authentification.
+Cela m'a permis de développer mes compétences en développement web, en électronique et en gestion de projet.
+
+Même si ce projet est fonctionnel, une refonte serait la bienvenue. En effet, le code n'est pas très propre, et certaines fonctionnalités pourraient être améliorées. Par exemple, l'interface pourrait être plus intuitive et la logique améliorée.
+
+Stack : NextJS, NodeJS, SocketIO, MongoDB.
+
+## Homelab
+
+Depuis quelques années, je m'intéresse à l'auto-hébergement. J'ai donc décidé de me lancer dans la création de mon propre serveur.
+J'ai acheté d'autre raspberry, pour faire un petit cluster (de 2).
+Sur ce cluster, j'ai Docker qui fonctionne. J'ai également un NAS pour stocker mes données.
+Ce petit homelab me permet d'expérimenté, de tester des nouvelles technologies, et de m'amuser. J'ai donc pu toucher a Ansible, Terraform, le CI/CD, et le selfhost de manière générale.
+
+J'ai un VPN qui me permet d'accéder à mon réseau local, et donc à mes services, de n'importe où. J'ai également un système de monitoring, qui me permet de voir l'état de mes services, et de recevoir des alertes en cas de problème.
+
+Surtout, j'ai pu apprendre beaucoup sur Docker, la containerisation, et le déploiement. J'ai aussi pris le temps d'apprendre à utiliser les plateformes de cloud, comme AWS, GCP, et Azure.
+
+Stack : Docker, Ansible, Terraform, CI/CD, Cloud.
