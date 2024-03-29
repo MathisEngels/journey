@@ -1,6 +1,6 @@
 ---
-import { Toaster } from "@/components/ui/sonner";
-import { SEO } from "astro-seo";
+import { Toaster } from '@/components/ui/sonner';
+import { SEO } from 'astro-seo';
 
 interface Props {
     seo: {
@@ -12,7 +12,7 @@ interface Props {
         }[];
         ogLocale: string;
         ogLocaleAlternate?: string[];
-    }
+    };
 }
 
 const { seo } = Astro.props;
@@ -21,7 +21,7 @@ const { seo } = Astro.props;
 <!doctype html>
 <html lang="en">
     <head>
-        <SEO 
+        <SEO
             title={seo.title}
             titleDefault="Mathis Engels | Portfolio"
             description={seo.description}
@@ -30,8 +30,8 @@ const { seo } = Astro.props;
             openGraph={{
                 basic: {
                     title: seo.title,
-                    type: "website",
-                    image: "https://mathisengels.fr/og-image.webp",
+                    type: 'website',
+                    image: 'https://journey.mathisengels.fr/og-image.webp',
                 },
                 image: {
                     alt: "Mathis Engels's logo",
@@ -39,12 +39,13 @@ const { seo } = Astro.props;
                 optional: {
                     locale: seo.ogLocale,
                     localeAlternate: seo.ogLocaleAlternate,
-                }
-            }} />
+                },
+            }}
+        />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <script defer data-domain="mathisengels.fr" src="https://plausible.local.mathisengels.fr/js/script.js"></script>
+        <script defer data-domain="journey.mathisengels.fr" src="https://plausible.mathisengels.fr/js/script.js"></script>
     </head>
     <body>
         <main class="h-[100dvh]">

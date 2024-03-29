@@ -1,6 +1,6 @@
-export const ANIMATION_DELAY = 1.5;
+export const ANIMATION_DELAY = 2; // Can't be superior than ANIMATION_DURATION
 
-export const ANIMATION_DURATION = 3;
+export const ANIMATION_DURATION = 2.5;
 
 export const ANIMATION_Y = 35;
 
@@ -60,40 +60,40 @@ export const SCENES_DISCOVERY_CAMERA_ANGLE = [
 
 export const TRIGGER_POINTS_POI = [
     {
-        xMin: -70,
-        zMin: -5,
-        xMax: -60,
-        zMax: 5,
+        xMin: -69.4313,
+        zMin: -14.1949,
+        xMax: -58.4091,
+        zMax: -2.00724,
     },
     {
-        xMin: -2,
-        zMin: -12,
-        xMax: 7,
-        zMax: -5,
+        xMin: -53.3119,
+        zMin: -7.23438,
+        xMax: -43.1053,
+        zMax: 3.42339,
     },
     {
-        xMin: 25,
-        zMin: 1,
-        xMax: 35,
-        zMax: 12,
+        xMin: -36.3572,
+        zMin: -14.8796,
+        xMax: -28.0947,
+        zMax: -6.61716,
     },
     {
-        xMin: 57,
-        zMin: -11,
-        xMax: 72,
-        zMax: -1.5,
+        xMin: -22.3435,
+        zMin: -9.14696,
+        xMax: -9.07827,
+        zMax: 2.0567,
     },
     {
-        xMin: 88,
-        zMin: 1,
-        xMax: 99,
-        zMax: 10,
+        xMin: -1.35399,
+        zMin: -16.9141,
+        xMax: 15.3005,
+        zMax: -2.64602,
     },
     {
-        xMin: 161,
-        zMin: -15,
-        xMax: 169,
-        zMax: -7.5,
+        xMin: 27.263,
+        zMin: -13.6759,
+        xMax: 52.2799,
+        zMax: 0,
     },
     {
         xMin: 41.3302,
@@ -135,10 +135,10 @@ export const TRIGGER_POINTS_SCENE_REVEAL = [
         zMax: -6.6,
     },
     {
-        xMin: 34.5,
-        zMin: -4.7,
-        xMax: 38.2,
-        zMax: 7,
+        xMin: 19.7,
+        zMin: -7.2,
+        xMax: 26.2,
+        zMax: 0,
     },
 ];
 

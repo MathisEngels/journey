@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://www.mathisengels.fr',
+    site: 'https://journey.mathisengels.fr',
     i18n: {
         locales: ['fr', 'en'],
         defaultLocale: 'fr',
