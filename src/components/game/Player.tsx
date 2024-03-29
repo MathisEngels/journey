@@ -16,7 +16,7 @@ const fixedDeltaTime = 1 / 60; // 60 updates per second
 
 function Player() {
     const group = useRef<Object3D>();
-    const { nodes, materials, animations } = useGLTF('/player-c.glb');
+    const { nodes, materials, animations } = useGLTF('/player.glb');
     const { actions } = useAnimations(animations, group);
 
     const [wakingUp, setWakingUp] = useState(false);
@@ -72,7 +72,7 @@ function Player() {
             playerControllerRef.current?.free();
             playerControllerRef.current = null;
             unsubscribeTutorialUpdater();
-            useGLTF.clear('/player-c.glb');
+            useGLTF.clear('/player.glb');
         };
     }, []);
 
@@ -157,6 +157,6 @@ function Player() {
     );
 }
 
-useGLTF.preload('/player-c.glb');
+useGLTF.preload('/player.glb');
 
 export default Player;
