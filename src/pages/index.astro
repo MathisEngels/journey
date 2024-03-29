@@ -1,26 +1,28 @@
 ---
-import Fiber from "@/components/game/Fiber.tsx";
-import EndSceneContactForm from "@/components/ui/EndSceneContactForm";
-import Link from "@/components/ui/Link.astro";
-import Loader from "@/components/ui/Loader.astro";
-import LoaderAction from "@/components/ui/LoaderAction.tsx";
-import LoaderContent from "@/components/ui/LoaderContent.astro";
-import LoaderFooter from "@/components/ui/LoaderFooter.astro";
-import LoaderHeader from "@/components/ui/LoaderHeader.astro";
-import POIDrawer from "@/components/ui/POIDrawer.tsx";
-import SideMenu from "@/components/ui/SideMenu.tsx";
-import SideMenuLink from "@/components/ui/SideMenuLink.astro";
-import Tutorial from "@/components/ui/Tutorial.astro";
-import TutorialInstruction from "@/components/ui/TutorialInstruction.tsx";
-import Layout from "@/layouts/Layout.astro";
-import "@/styles/globals.css";
-import { getLangFromUrl } from "@/utils/i18nUtils";
-import { getCollection } from "astro:content";
+import Fiber from '@/components/game/Fiber.tsx';
+import EndSceneContactForm from '@/components/ui/EndSceneContactForm';
+import Link from '@/components/ui/Link.astro';
+import Loader from '@/components/ui/Loader.astro';
+import LoaderAction from '@/components/ui/LoaderAction.tsx';
+import LoaderContent from '@/components/ui/LoaderContent.astro';
+import LoaderFooter from '@/components/ui/LoaderFooter.astro';
+import LoaderHeader from '@/components/ui/LoaderHeader.astro';
+import LoaderNavigation from '@/components/ui/LoaderNavigation.tsx';
+import LoaderWarning from '@/components/ui/LoaderWarning.astro';
+import POIDrawer from '@/components/ui/POIDrawer.tsx';
+import SideMenu from '@/components/ui/SideMenu.tsx';
+import SideMenuLink from '@/components/ui/SideMenuLink.astro';
+import Tutorial from '@/components/ui/Tutorial.astro';
+import TutorialInstruction from '@/components/ui/TutorialInstruction.tsx';
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/globals.css';
+import { getLangFromUrl } from '@/utils/i18nUtils';
+import { getCollection } from 'astro:content';
 
-const MOBILE = "(max-width: 768px)";
-const DESKTOP = "(min-width: 768px)";
+const MOBILE = '(max-width: 768px)';
+const DESKTOP = '(min-width: 768px)';
 const locale = getLangFromUrl(Astro.url);
-const POICollection = await getCollection("POI", ({ id }) => {
+const POICollection = await getCollection('POI', ({ id }) => {
     return id.startsWith(`${locale}/`);
 });
 const { Content: POI1 } = await POICollection[0].render();
@@ -31,44 +33,48 @@ const { Content: POI5 } = await POICollection[4].render();
 const { Content: POI6 } = await POICollection[5].render();
 
 const contactFormTranslations = {
-    submitLoading: "Envoi...",
-    submitSuccess: "Message envoyé !",
+    submitLoading: 'Envoi...',
+    submitSuccess: 'Message envoyé !',
     submitError: "Queqlue chose s'est mal passé",
-    copiedToClipboard: "Copié dans le presse-papiers !",
-    cardTitle: "Rentrons en contact",
-    cardDescription: "Si vous préférez, vous pouvez aussi me joindre à ",
-    formName: "Nom",
-    formMessagePlaceholder: "Bonjour...",
-    formMessageDescription: "Je suis toujours à l'écoute de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour toute demande ou simplement pour dire bonjour !",
-    formSubmit: "Envoyer",
-    formCancel: "Non, ça ira"
-}
+    copiedToClipboard: 'Copié dans le presse-papiers !',
+    cardTitle: 'Rentrons en contact',
+    cardDescription: 'Si vous préférez, vous pouvez aussi me joindre à ',
+    formName: 'Nom',
+    formMessagePlaceholder: 'Bonjour...',
+    formMessageDescription:
+        "Je suis toujours à l'écoute de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour toute demande ou simplement pour dire bonjour !",
+    formSubmit: 'Envoyer',
+    formCancel: 'Non, ça ira',
+};
 
 const seo = {
-    title: "Mathis Engels | Portfolio",
-    description: "Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et agréables. Empruntez mon chemin, explorez mes compétences, et découvrez la valeur que mes services peuvent apporter à vos projets.",
+    title: 'Mathis Engels | Portfolio',
+    description:
+        "Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et agréables. Empruntez mon chemin, explorez mes compétences, et découvrez la valeur que mes services peuvent apporter à vos projets.",
     languageAlternates: [
         {
-            hrefLang: "en",
-            href: "/en"
-        }
+            hrefLang: 'en',
+            href: '/en',
+        },
     ],
-    ogLocale: "fr_FR",
-    ogLocaleAlternate: ["en_US"]
-}
+    ogLocale: 'fr_FR',
+    ogLocaleAlternate: ['en_US'],
+};
 ---
 
 <Layout seo={seo}>
-    <Fiber client:idle />
+    <Fiber client:visible />
 
     <Tutorial>
         <TutorialInstruction index={1} client:media={MOBILE}>Déplacez-vous en double-cliquant.</TutorialInstruction>
         <TutorialInstruction index={1} client:media={DESKTOP}>Déplacez-vous avec le clique droit.</TutorialInstruction>
         <TutorialInstruction index={2} client:visible>Entrez dans le cercle pour commencer l'expérience interactive.</TutorialInstruction>
         <TutorialInstruction index={3} client:media={MOBILE}>xplorez les environs en faisant glisser votre doigt sur l'écran.</TutorialInstruction>
-        <TutorialInstruction index={3} client:media={DESKTOP}>Explorez les environs en cliquant et en maintenant le clique gauche.</TutorialInstruction>
+        <TutorialInstruction index={3} client:media={DESKTOP}
+            >Explorez les environs en cliquant et en maintenant le clique gauche.</TutorialInstruction
+        >
     </Tutorial>
-        
+
     <POIDrawer client:visible>
         <p slot="poi-1-title">{POICollection[0].data.title}</p>
         <POI1 slot="poi-1" />
@@ -96,24 +102,25 @@ const seo = {
         </LoaderHeader>
         <LoaderContent>
             <h3 class="font-normal text-2xl md:text-4xl">Salut !</h3>
-            <p>Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et agréables.</p>
+            <p>
+                Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et captivantes.
+            </p>
             <p>Empruntez mon chemin, explorez mes compétences, et découvrez la valeur que mes services peuvent apporter à vos projets.</p>
         </LoaderContent>
         <LoaderFooter>
             <LoaderAction client:load>Explorer</LoaderAction>
-            <p class="text-md font-light">Ou allez directement aux pages <Link href="/a-propos">À propos</Link>, <Link href="/projets">Projets</Link>, <Link href="/cv">CV</Link>, <Link href="/contact">Contact</Link> !</p>
-            <p class="font-extralight"><Link href="/en">EN Version</Link></p>
+            <div class="relative w-full">
+                <LoaderWarning>Votre fenêtre peut se figer pendant le chargement.</LoaderWarning>
+                <LoaderNavigation client:load>
+                    <p class="font-extralight"><Link href="/en">EN Version</Link></p>
+                </LoaderNavigation>
+            </div>
         </LoaderFooter>
     </Loader>
 
     <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:idle>
         <ul class="space-y-4">
             <SideMenuLink href="/">Portfolio</SideMenuLink>
-            <SideMenuLink href="/a-propos">À propos</SideMenuLink>
-            <SideMenuLink href="/projets">Projets</SideMenuLink>
-            <SideMenuLink href="/cv">CV</SideMenuLink>
-            <SideMenuLink href="/contact">Contact</SideMenuLink>
-            <SideMenuLink href="/legal">Legal</SideMenuLink>
             <SideMenuLink href="/en">EN Version</SideMenuLink>
         </ul>
     </SideMenu>
