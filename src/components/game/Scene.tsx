@@ -12,21 +12,40 @@ import type { MeshProps } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';
 import gsap from 'gsap';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BufferGeometry, DoubleSide, Group, Mesh, MeshStandardMaterial, Object3D, SRGBColorSpace, Vector3, type Object3DEventMap } from 'three';
+import {
+    AnimationAction,
+    AnimationClip,
+    BufferGeometry,
+    DoubleSide,
+    Group,
+    Mesh,
+    MeshStandardMaterial,
+    Object3D,
+    SRGBColorSpace,
+    Vector3,
+    type Object3DEventMap,
+} from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/Addons.js';
 
-function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animationFunction?: () => void }) {
-    useGLTF.preload(`/scene-${sceneNumber}-c.glb`);
+interface SceneProps {
+    sceneNumber: number;
+    animationFunction?: (actions: { [x: string]: AnimationAction }) => void;
+}
+
+function Scene({ sceneNumber, animationFunction }: SceneProps) {
+    useGLTF.preload(`/scene-${sceneNumber}.glb`);
     const group = useRef<Object3D>(null);
 
-    const { nodes, animations } = useGLTF(`/scene-${sceneNumber}-c.glb`);
+    const { nodes, animations } = useGLTF(`/scene-${sceneNumber}.glb`);
     const { actions } = useAnimations(animations, group);
 
-    const texture = useTexture(`/textures/Scene-${sceneNumber}-texture.jpg`);
+    const texture = useTexture(`/textures/Scene-${sceneNumber}-8k.webp`);
     texture.flipY = false;
     texture.colorSpace = SRGBColorSpace;
     const textureMaterial = useMemo(() => {
-        return new MeshStandardMaterial({ map: texture });
+        const material = new MeshStandardMaterial({ map: texture });
+        material.alphaTest = 0.99;
+        return material;
     }, []);
     if (sceneNumber !== 4 && sceneNumber !== 5) textureMaterial.side = DoubleSide;
 
@@ -61,11 +80,12 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
             const nodeName = nodeData.name;
             const node = nodes[nodeName] as Mesh;
 
-            const nodeAnimations = Object.keys(actions).filter((animationName) => {
-                return animationName.startsWith(`${nodeName}.Action`);
+            const nodeAnimations = Object.keys(actions).filter((actionName) => {
+                return actionName.startsWith(`${nodeName}.Action`);
             });
 
             if (nodeAnimations.length > 0) {
+                node.animations = nodeAnimations as unknown as AnimationClip[];
                 animatedMeshes.push(node);
             } else {
                 const clonedGeometry = node.geometry.clone();
@@ -85,7 +105,7 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
 
     useEffect(() => {
         if (animationFunction) {
-            animationFunction();
+            animationFunction(actions as { [x: string]: AnimationAction });
         }
 
         if (group.current) {
@@ -153,7 +173,7 @@ function Scene({ sceneNumber, animationFunction }: { sceneNumber: number; animat
         return () => {
             unlisten();
             unsubcribeTutorialUpdater();
-            useGLTF.clear(`/scene-${sceneNumber}-c.glb`);
+            useGLTF.clear(`/scene-${sceneNumber}.glb`);
         };
     }, []);
 
