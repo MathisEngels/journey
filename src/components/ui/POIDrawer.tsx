@@ -61,7 +61,7 @@ export function POIDrawer(props: POIDrawerProps) {
                                                 <ChevronDownIcon className="h-4 w-4 shrink-0 transition-transform duration-200" />
                                             </Button>
                                         </AccordionTrigger>
-                                        <AccordionContent>
+                                        <AccordionContent className="p-4">
                                             <article className="prose prose-invert">{content}</article>
                                         </AccordionContent>
                                     </AccordionItem>
