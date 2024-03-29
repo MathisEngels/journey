@@ -1,15 +1,18 @@
-<section id='loader' class={`bg-background h-dvh w-dvw absolute top-0 left-0 flex items-center justify-center duration-500 transition-opacity text-center text-white font-semibold`}>
-            <div class="flex flex-col justify-evenly items-center h-full w-3/4"><slot /></div>
+<section
+    id="loader"
+    class={`bg-background h-dvh w-dvw absolute top-0 left-0 flex items-center justify-center duration-500 transition-opacity text-center text-white font-semibold`}
+>
+    <div class="flex flex-col justify-evenly items-center h-full w-3/4"><slot /></div>
 </section>
 
 <script>
-    import { loaderFade } from '@/gameStore';
+    import { loaderFade } from '@/stores/gameStore';
 
     const unsub = loaderFade.listen((fade) => {
         if (fade) {
-            document.getElementById('loader').classList.remove('opacity-100');
-            document.getElementById('loader').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('loader')!.classList.remove('opacity-100');
+            document.getElementById('loader')!.classList.add('opacity-0', 'pointer-events-none');
             unsub();
         }
-    })
+    });
 </script>

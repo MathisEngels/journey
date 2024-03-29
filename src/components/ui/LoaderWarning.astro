@@ -1,0 +1,12 @@
+<p id="loader-warning" class="transition-opacity duration-300 font-thin absolute w-full top-0"><slot /></p>
+
+<script>
+    import { loaded } from '@/stores/uiStore';
+
+    const unsub = loaded.listen((load) => {
+        if (load) {
+            document.getElementById('loader-warning')!.classList.add('opacity-0', 'pointer-events-none');
+            unsub();
+        }
+    });
+</script>
