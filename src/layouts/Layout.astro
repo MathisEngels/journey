@@ -19,11 +19,11 @@ const { seo } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={Astro.currentLocale}>
     <head>
         <SEO
             title={seo.title}
-            titleDefault="Mathis Engels | Portfolio"
+            titleDefault="The Journey by Mathis Engels"
             description={seo.description}
             charset="UTF-8"
             languageAlternates={seo.languageAlternates}
@@ -37,6 +37,7 @@ const { seo } = Astro.props;
                     alt: "Mathis Engels's logo",
                 },
                 optional: {
+                    description: seo.description,
                     locale: seo.ogLocale,
                     localeAlternate: seo.ogLocaleAlternate,
                 },
