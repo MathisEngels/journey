@@ -39,7 +39,7 @@ function Scene({ sceneNumber, animationFunction }: SceneProps) {
     const { nodes, animations } = useGLTF(`/scene-${sceneNumber}.glb`);
     const { actions } = useAnimations(animations, group);
 
-    const texture = useTexture(`/textures/Scene-${sceneNumber}-8k.webp`);
+    const texture = useTexture(`/textures/Scene-${sceneNumber}.webp`);
     texture.flipY = false;
     texture.colorSpace = SRGBColorSpace;
     const textureMaterial = useMemo(() => {
