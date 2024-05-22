@@ -64,6 +64,7 @@ const seo = {
 
 <Layout seo={seo}>
     <Fiber client:visible />
+    {Astro.preferredLocale + locale}
 
     <Tutorial>
         <TutorialInstruction index={1} client:media={MOBILE}>Déplacez-vous en double-cliquant.</TutorialInstruction>

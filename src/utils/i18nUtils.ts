@@ -6,5 +6,5 @@ export const languages = {
 export const defaultLang = 'fr';
 
 export function getLocale(preferredLocale: string | undefined) {
-    return preferredLocale || defaultLang;
+    return preferredLocale ?? defaultLang;
 }
