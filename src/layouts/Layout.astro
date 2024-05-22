@@ -4,7 +4,7 @@ import { SEO } from 'astro-seo';
 
 interface Props {
     seo: {
-        title: string;
+        title?: string;
         description: string;
         languageAlternates?: {
             hrefLang: string;
@@ -16,22 +16,23 @@ interface Props {
 }
 
 const { seo } = Astro.props;
+const title = seo.title ?? 'Journey - Mathis Engels';
+const image = new URL('/og-image.webp', Astro.url).toString();
 ---
 
 <!doctype html>
 <html lang={Astro.currentLocale}>
     <head>
         <SEO
-            title={seo.title}
-            titleDefault="The Journey by Mathis Engels"
+            title={title}
             description={seo.description}
             charset="UTF-8"
             languageAlternates={seo.languageAlternates}
             openGraph={{
                 basic: {
-                    title: seo.title,
+                    title: title,
                     type: 'website',
-                    image: 'https://journey.mathisengels.fr/og-image.webp',
+                    image: image,
                 },
                 image: {
                     alt: "Mathis Engels's logo",
@@ -40,7 +41,16 @@ const { seo } = Astro.props;
                     description: seo.description,
                     locale: seo.ogLocale,
                     localeAlternate: seo.ogLocaleAlternate,
+                    siteName: 'Journey - Mathis Engels',
                 },
+            }}
+            twitter={{
+                card: 'summary',
+                creator: '@mathisengels',
+                title: title,
+                image: image,
+                imageAlt: "Mathis Engels's logo",
+                description: seo.description,
             }}
         />
         <meta name="viewport" content="width=device-width" />

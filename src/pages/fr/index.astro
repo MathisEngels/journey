@@ -24,7 +24,7 @@ const MOBILE = '(max-width: 768px)';
 const DESKTOP = '(min-width: 768px)';
 
 const POICollection = await getCollection('POI', ({ id }) => {
-    return id.startsWith(`en/`);
+    return id.startsWith(`fr/`);
 });
 const { Content: POI1 } = await POICollection[0].render();
 const { Content: POI2 } = await POICollection[1].render();
@@ -34,42 +34,45 @@ const { Content: POI5 } = await POICollection[4].render();
 const { Content: POI6 } = await POICollection[5].render();
 
 const contactFormTranslations = {
-    submitLoading: 'Sending...',
-    submitSuccess: 'Message sent!',
-    submitError: 'Something went wrong',
-    copiedToClipboard: 'Copied in clipboard!',
-    cardTitle: "Let's connect!",
-    cardDescription: 'If you prefer, you can reach me at ',
-    formName: 'Name',
-    formMessagePlaceholder: 'Hi...',
-    formMessageDescription: 'I always open to new opporutnies and collaborations. Feel free to ask me anything or just say hi!',
-    formSubmit: 'Send',
-    formCancel: "No, I'm good",
+    submitLoading: 'Envoi...',
+    submitSuccess: 'Message envoyé !',
+    submitError: "Queqlue chose s'est mal passé",
+    copiedToClipboard: 'Copié dans le presse-papiers !',
+    cardTitle: 'Rentrons en contact',
+    cardDescription: 'Si vous préférez, vous pouvez aussi me joindre à ',
+    formName: 'Nom',
+    formMessagePlaceholder: 'Bonjour...',
+    formMessageDescription:
+        "Je suis toujours à l'écoute de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour toute demande ou simplement pour dire bonjour !",
+    formSubmit: 'Envoyer',
+    formCancel: 'Non, ça ira',
 };
 
 const seo = {
     description:
-        "I'm Mathis, a freelance fullstack developer passionate about creating engaging and enjoyable digital experiences. Follow my path, explore my skills, and discover the value that my services can bring to your projects.",
+        "Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et agréables. Empruntez mon chemin, explorez mes compétences, et découvrez la valeur que mes services peuvent apporter à vos projets.",
     languageAlternates: [
         {
-            hrefLang: 'fr',
-            href: '/fr',
+            hrefLang: 'en',
+            href: '/en',
         },
     ],
-    ogLocale: 'en_US',
-    ogLocaleAlternate: ['fr_FR'],
+    ogLocale: 'fr_FR',
+    ogLocaleAlternate: ['en_US'],
 };
 ---
 
 <Layout seo={seo}>
-    <Fiber client:idle />
+    <Fiber client:visible />
 
     <Tutorial>
-        <TutorialInstruction index={1} client:media={MOBILE}>Move around by double tapping.</TutorialInstruction>
-        <TutorialInstruction index={1} client:media={DESKTOP}>Move around by right clicking.</TutorialInstruction>
-        <TutorialInstruction index={2} client:visible>Enter the circle to begin the interactive experiences.</TutorialInstruction>
-        <TutorialInstruction index={3} client:media={MOBILE}>Explore the surroundings by dragging your finger across the screen.</TutorialInstruction>
-        <TutorialInstruction index={3} client:media={DESKTOP}>Explore the surroundings by holding left click.</TutorialInstruction>
+        <TutorialInstruction index={1} client:media={MOBILE}>Déplacez-vous en double-cliquant.</TutorialInstruction>
+        <TutorialInstruction index={1} client:media={DESKTOP}>Déplacez-vous avec le clique droit.</TutorialInstruction>
+        <TutorialInstruction index={2} client:visible>Entrez dans le cercle pour commencer l'expérience interactive.</TutorialInstruction>
+        <TutorialInstruction index={3} client:media={MOBILE}>Explorez les environs en faisant glisser votre doigt sur l'écran.</TutorialInstruction>
+        <TutorialInstruction index={3} client:media={DESKTOP}
+            >Explorez les environs en cliquant et en maintenant le clique gauche.</TutorialInstruction
+        >
     </Tutorial>
 
     <POIDrawer client:visible>
@@ -85,7 +88,9 @@ const seo = {
         <POI5 slot="poi-5" />
         <p slot="poi-6-title">{POICollection[5].data.title}</p>
         <POI6 slot="poi-6" />
-        <p slot="learn-more">Learn more</p>
+        <p slot="learn-more">En apprendre plus</p>
+        <p slot="poi-7-title">Vous avez un projet en tête ?</p>
+        <p slot="poi-7">Ecrivons la suite ensemble</p>
     </POIDrawer>
 
     <EndSceneContactForm translations={contactFormTranslations} client:visible />
@@ -96,16 +101,18 @@ const seo = {
             <Fragment slot="description">Freelance Fullstack Dev</Fragment>
         </LoaderHeader>
         <LoaderContent>
-            <h3 class="font-normal text-2xl md:text-4xl">Hi !</h3>
-            <p>I'm Mathis, a freelance fullstack developer passionate about creating engaging and enjoyable digital experiences.</p>
-            <p>Follow my path, explore my skills, and discover the value that my services can bring to your projects.</p>
+            <h3 class="font-normal text-2xl md:text-4xl">Salut !</h3>
+            <p>
+                Je m'appelle Mathis, un développeur freelance fullstack passionné par la création d'expériences numériques engageantes et captivantes.
+            </p>
+            <p>Empruntez mon chemin, explorez mes compétences, et découvrez la valeur que mes services peuvent apporter à vos projets.</p>
         </LoaderContent>
         <LoaderFooter>
-            <LoaderAction client:load>Explore my path</LoaderAction>
+            <LoaderAction client:load>Explorer</LoaderAction>
             <div class="relative w-full">
-                <LoaderWarning>Your window may freeze during loading.</LoaderWarning>
+                <LoaderWarning>Votre fenêtre peut se figer pendant le chargement.</LoaderWarning>
                 <LoaderNavigation client:load>
-                    <p class="font-extralight"><Link href="/fr">FR Version</Link></p>
+                    <p class="font-extralight"><Link href="/en">EN Version</Link></p>
                 </LoaderNavigation>
             </div>
         </LoaderFooter>
@@ -113,8 +120,8 @@ const seo = {
 
     <SideMenu title="Mathis Engels" description="Freelance Fullstack Dev" client:idle>
         <ul class="space-y-4">
-            <SideMenuLink href="/en">Home</SideMenuLink>
-            <SideMenuLink href="/fr">FR Version</SideMenuLink>
+            <SideMenuLink href="/fr">Home</SideMenuLink>
+            <SideMenuLink href="/en">EN Version</SideMenuLink>
         </ul>
     </SideMenu>
 </Layout>

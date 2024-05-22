@@ -1,20 +1,35 @@
 ---
-import Link from "@/components/ui/Link.astro";
-import Layout from "@/layouts/Layout.astro";
-import "@/styles/globals.css";
+import Link from '@/components/ui/Link.astro';
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/globals.css';
 
 const seo = {
-    title: "Mathis Engels | Portfolio",
-    description: "404 - Page not found",
-    ogLocale: "en_US",
-    ogLocaleAlternate: ["fr_FR"]
-}
+    description: '404 - Page not found',
+    ogLocale: 'en_US',
+};
+
+const translations = {
+    en: {
+        title: '404 - Page not found',
+        home: 'Go back to home',
+    },
+    fr: {
+        title: '404 - Page non trouvée',
+        home: "Retourner à l'accueil",
+    },
+};
+
+const locale = (Astro.preferredLocale as 'fr' | 'en') ?? 'fr';
+
+const t = translations[locale];
 ---
 
 <Layout seo={seo}>
-    <section class="bg-background h-dvh w-dvw absolute top-0 left-0 flex flex-col items-center justify-center duration-500 transition-opacity text-center text-white font-semibold">
+    <section
+        class="bg-background h-dvh w-dvw absolute top-0 left-0 flex flex-col items-center justify-center duration-500 transition-opacity text-center text-white font-semibold"
+    >
         <h1 class="text-4xl">404</h1>
-        <p class="text-lg font-light">Page not found</p>
-        <Link href="/" class="mt-4 text-lg font-light">Go back to home</Link>
+        <p class="text-lg font-light">{t['title']}</p>
+        <Link href="/" class="mt-4 text-lg font-light">{t['home']}</Link>
     </section>
 </Layout>
