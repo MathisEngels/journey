@@ -16,10 +16,10 @@ import Tutorial from '@/components/ui/Tutorial.astro';
 import TutorialInstruction from '@/components/ui/TutorialInstruction.tsx';
 import Layout from '@/layouts/Layout.astro';
 import '@/styles/globals.css';
-import { getLangFromUrl } from '@/utils/i18nUtils';
+import { getLocale } from '@/utils/i18nUtils';
 import { getCollection } from 'astro:content';
 
-const locale = getLangFromUrl(Astro.url);
+const locale = getLocale(Astro.preferredLocale);
 
 const MOBILE = '(max-width: 768px)';
 const DESKTOP = '(min-width: 768px)';
