@@ -6,12 +6,6 @@ interface Props {
     seo: {
         title?: string;
         description: string;
-        languageAlternates?: {
-            hrefLang: string;
-            href: string;
-        }[];
-        ogLocale: string;
-        ogLocaleAlternate?: string[];
     };
 }
 
@@ -27,7 +21,6 @@ const image = new URL('/og-image.webp', Astro.url).toString();
             title={title}
             description={seo.description}
             charset="UTF-8"
-            languageAlternates={seo.languageAlternates}
             openGraph={{
                 basic: {
                     title: title,
@@ -39,8 +32,6 @@ const image = new URL('/og-image.webp', Astro.url).toString();
                 },
                 optional: {
                     description: seo.description,
-                    locale: seo.ogLocale,
-                    localeAlternate: seo.ogLocaleAlternate,
                     siteName: 'Journey - Mathis Engels',
                 },
             }}
